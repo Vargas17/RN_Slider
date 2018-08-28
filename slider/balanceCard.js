@@ -19,17 +19,19 @@ class BalanceCard extends Component {
             <Text style={styles.smallBalanceText}>,09</Text>
           </View>
         </View>
-        <View styles={styles.info}>
+        <View>
           <View>
             <View>
               <Text style={[styles.infoText, styles.infoGreenText]}>$12.887 recebido</Text>
               <Text style={styles.infoText}>de Arthur, hoje às 8:34.</Text>
             </View>
-            <View styles={styles.progressBar}>
-              <View styles={styles.receivedBar}></View>
-              <View styles={styles.paidBar}></View>
+            <View style={styles.progressBar}>
+              <View style={styles.receivedBar}></View>
+              <View style={styles.paidBar}></View>
             </View>
           </View>
+        </View>
+        <View>
           <Text style={styles.footerText}>Ver extrato completo</Text>
         </View>
       </View>
@@ -83,19 +85,21 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     color: '#9b9b9b'
   },
-  info: {
-    justifyContent: 'space-between'
-  },
   progressBar: {
+    flexDirection: 'row',
     height: 3,
+    alignSelf: 'stretch',
+    marginTop: 5,
   },
   receivedBar: {
     flex: 3,
-    backgroundColor: '#21a63d'
+    backgroundColor: '#21a63d',
+    borderRadius: 2
   },
   paidBar: {
     flex: 1,
-    backgroundColor: '#ff5a5f'
+    backgroundColor: '#ff5a5f',
+    borderRadius: 2,
   },
 });
 
