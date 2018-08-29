@@ -3,7 +3,9 @@ import { StyleSheet, Dimensions, View } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Card from './card';
 import BalanceCard from './balanceCard';
+import constants from './constants';
 
+const { $fontColor } = constants;
 const { width: viewportWidth } = Dimensions.get('window');
 const sliderWidth = viewportWidth;
 const itemWidth = viewportWidth;
@@ -16,14 +18,14 @@ class Slider extends Component {
       sliderActiveSlide: SLIDER_FIRST_ITEM
     };
   }
-  _renderItem({ item }) {
+  _renderItem({ item: {type, data} }) {
     return (
       <View style={styles.sliderItem}>
         <Card>
           {
-            (item === 'balance' && <BalanceCard></BalanceCard>) ||
-            (item === 'history' && <BalanceCard></BalanceCard>) ||
-            (item === 'change' && <BalanceCard></BalanceCard>)
+            (type === 'balance' && <BalanceCard data={data}></BalanceCard>) ||
+            (type === 'history' && <BalanceCard data={data}></BalanceCard>) ||
+            (type === 'change' && <BalanceCard data={data}></BalanceCard>)
           }
         </Card>
       </View>
@@ -50,9 +52,9 @@ class Slider extends Component {
           dotsLength={this.props.sliderItems.length}
           activeDotIndex={sliderActiveSlide}
           containerStyle={styles.paginationContainer}
-          dotColor={'#4a4a4a'}
+          dotColor={$fontColor}
           dotStyle={styles.paginationDot}
-          inactiveDotColor={'#4a4a4a'}
+          inactiveDotColor={$fontColor}
           inactiveDotOpacity={0.4}
           inactiveDotScale={0.9}
           carouselRef={this._slider1Ref}

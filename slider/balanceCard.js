@@ -1,36 +1,71 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableWithoutFeedback } from 'react-native';
+import constants from './constants';
+
+const { $fontColor, $lightFontColor, $highlightColor1, $highlightColor2 } = constants;
+
+const viewIcon = require('./img/ic-view.png');
 
 class BalanceCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      visibleBalance: true
     };
   }
 
+  toggleBalance() {
+    this.setState({visibleBalance: !this.state.visibleBalance});
+  }
+
   render() {
+    const { visibleBalance } = this.state;
+
+    const {
+      integerDigits,
+      fractionDigits,
+      paidProportion,
+      receivedProportion,
+      txType,
+      infoText,
+      infoText2
+    } = this.props.data;
+
+    const colorTable = {
+      receive: $highlightColor1,
+      send: $highlightColor2
+    };
+
     return (
       <View style={styles.content}>
-        <View>
-          <Text style={styles.headerText}>Seu saldo</Text>
-          <View style={styles.balance}>
-            <Text style={styles.smallBalanceText}>$</Text>
-            <Text style={styles.bigBalanceText}>20.586</Text>
-            <Text style={styles.smallBalanceText}>,09</Text>
+        <View style={styles.header}>
+          <View>
+            <Text style={styles.headerText}>Seu saldo</Text>
+            <View style={styles.balance}>
+              <Text style={styles.smallBalanceText}>$</Text>
+              <Text style={styles.bigBalanceText}>{integerDigits}</Text>
+              <Text style={styles.smallBalanceText}>,{fractionDigits}</Text>
+            </View>
           </View>
+
+          <TouchableWithoutFeedback onPress={this.toggleBalance.bind(this)}>
+            <View style={styles.icon}>
+              <Image source={visibleBalance ? viewIcon : viewIcon} />
+            </View>
+          </TouchableWithoutFeedback>
         </View>
-        <View>
+
           <View>
             <View>
-              <Text style={[styles.infoText, styles.infoGreenText]}>$12.887 recebido</Text>
-              <Text style={styles.infoText}>de Arthur, hoje às 8:34.</Text>
+              <Text style={[styles.infoText, {color: colorTable[txType], fontWeight: '500'}]}>{infoText}</Text>
+              <Text style={styles.infoText}>{infoText2}</Text>
             </View>
             <View style={styles.progressBar}>
-              <View style={styles.receivedBar}></View>
-              <View style={styles.paidBar}></View>
+              <View style={[styles.receivedBar, {flex: receivedProportion}]}></View>
+              <View style={[styles.paidBar, {flex: paidProportion}]}></View>
             </View>
           </View>
-        </View>
+
         <View>
           <Text style={styles.footerText}>Ver extrato completo</Text>
         </View>
@@ -44,6 +79,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
   },
+  header: {
+    justifyContent: 'space-between',
+    flexDirection: 'row'
+  },
   balance: {
     flexDirection: 'row',
     alignItems: 'flex-end',
@@ -52,14 +91,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'normal',
     fontStyle: 'normal',
-    color: '#4a4a4a'
+    color: $fontColor
   },
   smallBalanceText: {
     fontSize: 17,
     fontWeight: "900",
     fontStyle: 'normal',
     letterSpacing: 1,
-    color: '#4a4a4a',
+    color: $fontColor,
     marginBottom: 8,
   },
   bigBalanceText: {
@@ -67,23 +106,19 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     fontStyle: 'normal',
     letterSpacing: 1,
-    color: '#4a4a4a'
+    color: $fontColor
   },
   infoText: {
     fontSize: 14,
     fontWeight: '300',
     fontStyle: 'normal',
-    color: '#4a4a4a'
-  },
-  infoGreenText: {
-    fontWeight: '500',
-    color: '#21a63d'
+    color: $fontColor
   },
   footerText: {
     fontSize: 12,
     fontWeight: 'normal',
     fontStyle: 'normal',
-    color: '#9b9b9b'
+    color: $lightFontColor
   },
   progressBar: {
     flexDirection: 'row',
@@ -92,15 +127,17 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   receivedBar: {
-    flex: 3,
-    backgroundColor: '#21a63d',
+    backgroundColor: $highlightColor1,
     borderRadius: 2
   },
   paidBar: {
-    flex: 1,
-    backgroundColor: '#ff5a5f',
+    backgroundColor: $highlightColor2,
     borderRadius: 2,
   },
+  icon: {
+    justifyContent: 'center',
+    marginTop: 12
+  }
 });
 
 export default BalanceCard;
