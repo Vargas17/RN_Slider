@@ -15,7 +15,7 @@ class BalanceCard extends Component {
   }
 
   toggleBalance() {
-    this.setState({visibleBalance: !this.state.visibleBalance});
+    this.setState({ visibleBalance: !this.state.visibleBalance });
   }
 
   render() {
@@ -55,20 +55,18 @@ class BalanceCard extends Component {
           </TouchableWithoutFeedback>
         </View>
 
-          <View>
-            <View>
-              <Text style={[styles.infoText, {color: colorTable[txType], fontWeight: '500'}]}>{infoText}</Text>
-              <Text style={styles.infoText}>{infoText2}</Text>
-            </View>
-            <View style={styles.progressBar}>
-              <View style={[styles.receivedBar, {flex: receivedProportion}]}></View>
-              <View style={[styles.paidBar, {flex: paidProportion}]}></View>
-            </View>
-          </View>
-
         <View>
-          <Text style={styles.footerText}>Ver extrato completo</Text>
+          <View>
+            <Text style={[styles.infoText, {color: colorTable[txType], fontWeight: '500'}]}>{infoText}</Text>
+            <Text style={styles.infoText}>{infoText2}</Text>
+          </View>
+          <View style={styles.progressBar}>
+            <View style={[styles.receivedBar, {flex: receivedProportion}]}></View>
+            <View style={[styles.paidBar, {flex: paidProportion}]}></View>
+          </View>
         </View>
+
+        <Text style={styles.footerText}>Ver extrato completo</Text>
       </View>
     );
   }

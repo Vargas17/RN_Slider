@@ -8,8 +8,8 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Slider from './slider';
-import utils from './utils.js';
+import CardSlider from './cardSlider';
+import utils from './utils';
 
 const data = {
   "totalTransfered": 173.50,
@@ -19,43 +19,45 @@ const data = {
   "recentTransfers": [
     {
       "type": "send",
-      "from": "Arthur",
-      "to": "Mateus",
-      "value": 5,
-      "description": "cerveja",
-      "createdAt": "2018-08-28T18:15:50.786Z",
-      "qrcode": "data:image/png;base64,hash"
-    },
-    {
-      "type": "receive",
-      "from": "Mateus",
-      "to": "Arthur",
-      "value": 2,
-      "description": "pao de queijo",
-      "createdAt": "2018-08-22T20:00:42.870Z",
+      "from": "arthur@rethink.ws",
+      "to": "julia@email.com",
+      "counterpartName": "Julia",
+      "value": 12,
+      "description": "churrasco",
+      "createdAt": "2018-08-30T15:20:35.569Z",
       "qrcode": "data:image/png;base64,hash"
     },
     {
       "type": "send",
-      "from": "Arthur",
-      "to": "Ana",
-      "value": 20,
-      "description": "almoço",
-      "createdAt": "2018-08-23T14:21:14.041Z",
+      "from": "arthur@rethink.ws",
+      "to": "helena@email.com",
+      "counterpartName": "Helena",
+      "value": 10,
+      "description": "camisa",
+      "createdAt": "2018-08-30T15:17:10.546Z",
+      "qrcode": "data:image/png;base64,hash"
+    },
+    {
+      "type": "receive",
+      "from": "julia@email.com",
+      "to": "arthur@rethink.ws",
+      "counterpartName": "Julia",
+      "value": 5,
+      "description": "cerveja",
+      "createdAt": "2018-08-30T15:18:26.286Z",
       "qrcode": "data:image/png;base64,hash"
     }
   ]
 };
 
 const sliderItems = utils.parseSummaryData(data);
-console.log('ITEEMMS>>>', sliderItems);
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.wrapper}>
-          <Slider sliderItems={sliderItems}></Slider>
+          <CardSlider sliderItems={sliderItems}></CardSlider>
         </View>
       </View>
     );
@@ -70,6 +72,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   wrapper: {
-    height: 242,
+    height: 262,
   }
 });

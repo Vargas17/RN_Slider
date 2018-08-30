@@ -3,6 +3,7 @@ import { StyleSheet, Dimensions, View } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Card from './card';
 import BalanceCard from './balanceCard';
+import HistoryCard from './historyCard';
 import constants from './constants';
 
 const { $fontColor } = constants;
@@ -11,7 +12,7 @@ const sliderWidth = viewportWidth;
 const itemWidth = viewportWidth;
 const SLIDER_FIRST_ITEM = 0;
 
-class Slider extends Component {
+class CardSlider extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +25,7 @@ class Slider extends Component {
         <Card>
           {
             (type === 'balance' && <BalanceCard data={data}></BalanceCard>) ||
-            (type === 'history' && <BalanceCard data={data}></BalanceCard>) ||
+            (type === 'history' && <HistoryCard data={data}></HistoryCard>) ||
             (type === 'change' && <BalanceCard data={data}></BalanceCard>)
           }
         </Card>
@@ -84,4 +85,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Slider;
+export default CardSlider;
